@@ -27,3 +27,9 @@ function gameLogic(computerSelection, playerSelection){
         return `You Lose! ${computerSelection.toLowerCase()} beats ${playerSelection.toLowerCase()}!` 
     }
 }
+
+function play(){
+    let computerSelection = getComputerChoice().toLowerCase();
+    let playerSelection = prompt("Choose: Rock, Paper, Scissor").toLowerCase();
+    return gameLogic(computerSelection,playerSelection);
+}

@@ -18,18 +18,24 @@ function gameLogic(computerSelection, playerSelection){
     }else if(computerSelection=='scissor'&&playerSelection=='paper'){
         isPlayerWinner = false;
     }else if(computerSelection==playerSelection){
-        return 'It\'s a draw!'
+        return 'draw';
     }
-    
-    if(isPlayerWinner){
+    return isPlayerWinner;
+}
+
+function getResultMessage(result,computerSelection,playerSelection){
+    if(result&&result!='draw'){
         return `You Win! ${playerSelection.toLowerCase()} beats ${computerSelection.toLowerCase()}!` 
-    }else{
+    }else if(!result&&result!='draw'){
         return `You Lose! ${computerSelection.toLowerCase()} beats ${playerSelection.toLowerCase()}!` 
+    }else{
+        return 'It\'s a draw!'
     }
 }
 
 function play(){
     let computerSelection = getComputerChoice().toLowerCase();
     let playerSelection = prompt("Choose: Rock, Paper, Scissor").toLowerCase();
-    return gameLogic(computerSelection,playerSelection);
+    let result = gameLogic(computerSelection,playerSelection);
+    return getResultMessage(result,computerSelection,playerSelection);
 }

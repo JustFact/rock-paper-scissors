@@ -37,5 +37,30 @@ function play(){
     let computerSelection = getComputerChoice().toLowerCase();
     let playerSelection = prompt("Choose: Rock, Paper, Scissor").toLowerCase();
     let result = gameLogic(computerSelection,playerSelection);
-    return getResultMessage(result,computerSelection,playerSelection);
+    console.log(getResultMessage(result,computerSelection,playerSelection));
+    return result;
 }
+
+function game(){
+    let playerScore = 0;
+    let cpuScore = 0;
+
+    for(let i = 0; i < 5; i++){
+        let result = play();
+        if(result==true){
+            playerScore++;
+        }else if(result==false){
+            cpuScore++
+        }
+    }
+
+    if(playerScore>cpuScore){
+        alert(`CPU:${cpuScore} | Player: ${playerScore} \n Congratulations! You Won!`)
+    }else if(playerScore<cpuScore){
+        alert(`CPU:${cpuScore} | Player: ${playerScore} \n Better luck next time!`)
+    }else{
+        alert(`CPU:${cpuScore} | Player: ${playerScore} \n It's a draw!`)
+    }
+}
+
+game();

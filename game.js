@@ -35,7 +35,13 @@ function getResultMessage(result,computerSelection,playerSelection){
 
 function play(){
     let computerSelection = getComputerChoice().toLowerCase();
-    let playerSelection = prompt("Choose: Rock, Paper, Scissor").toLowerCase();
+    let playerSelection;
+    let playerSelectionCheck;
+    do{
+        playerSelection = prompt("Choose: Rock, Paper, Scissor").toLowerCase();
+        playerSelectionCheck = (playerSelection=='rock'||playerSelection=='paper'||playerSelection=='scissor')
+        console.assert(playerSelectionCheck,'Wrong input, please enter correct choice: Rock, Paper, Scissor');
+    }while(!playerSelectionCheck)
     let result = gameLogic(computerSelection,playerSelection);
     console.log(getResultMessage(result,computerSelection,playerSelection));
     return result;

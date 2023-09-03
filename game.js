@@ -1,3 +1,11 @@
+const options = document.querySelectorAll('button')
+const messageDiv = document.querySelector('.message');    
+
+
+options.forEach(option =>{
+    option.addEventListener('click', play)
+})
+
 function getComputerChoice(){
     let choice = Number.parseInt(Math.random()*3)+1;
     if(choice==1){
@@ -39,6 +47,7 @@ function play(event){
 
     let result = gameLogic(computerSelection,playerSelection);
     console.log(getResultMessage(result,computerSelection,playerSelection));
+    messageDiv.innerText = getResultMessage(result,computerSelection,playerSelection);
     return result;
 }
 
@@ -63,8 +72,3 @@ function game(){
         alert(`CPU:${cpuScore} | Player: ${playerScore} \n It's a draw!`)
     }
 }
-
-    const options = document.querySelectorAll('button')
-    options.forEach(option =>{
-        option.addEventListener('click', play)
-    })

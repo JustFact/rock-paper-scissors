@@ -33,15 +33,10 @@ function getResultMessage(result,computerSelection,playerSelection){
     }
 }
 
-function play(){
+function play(event){
     let computerSelection = getComputerChoice().toLowerCase();
-    let playerSelection;
-    let playerSelectionCheck;
-    do{
-        playerSelection = prompt("Choose: Rock, Paper, Scissor").toLowerCase();
-        playerSelectionCheck = (playerSelection=='rock'||playerSelection=='paper'||playerSelection=='scissor')
-        console.assert(playerSelectionCheck,'Wrong input, please enter correct choice: Rock, Paper, Scissor');
-    }while(!playerSelectionCheck)
+    let playerSelection = event.target.dataset.value;
+
     let result = gameLogic(computerSelection,playerSelection);
     console.log(getResultMessage(result,computerSelection,playerSelection));
     return result;
@@ -69,4 +64,7 @@ function game(){
     }
 }
 
-game();
+    const options = document.querySelectorAll('button')
+    options.forEach(option =>{
+        option.addEventListener('click', play)
+    })

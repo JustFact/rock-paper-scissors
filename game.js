@@ -1,5 +1,6 @@
 const options = document.querySelectorAll('button')
-const messageDiv = document.querySelector('.message');    
+const messageDiv = document.querySelector('.message');
+const scoreDiv = document.querySelector('.score');  
 const numberOfGames = 5;
 let gamesPlayed = 0;
 let playerScore = 0;
@@ -12,54 +13,68 @@ options.forEach(option =>{
 function getComputerChoice(){
     let choice = Number.parseInt(Math.random()*3)+1;
     if(choice==1){
-        return 'rock'
+        return 'Rock'
     } else if(choice==2){
-        return 'paper'
+        return 'Paper'
     }else{
-        return 'scissor'
+        return 'Scissor'
     }
 }
 
 function gameLogic(computerSelection, playerSelection){
     let isPlayerWinner = true;
-    if(computerSelection=='paper'&&playerSelection=='rock'){
+    if(computerSelection=='Paper'&&playerSelection=='Rock'){
         isPlayerWinner = false;
-    }else if(computerSelection=='rock'&&playerSelection=='scissor'){
+    }else if(computerSelection=='Rock'&&playerSelection=='Scissor'){
         isPlayerWinner = false;
-    }else if(computerSelection=='scissor'&&playerSelection=='paper'){
+    }else if(computerSelection=='Scissor'&&playerSelection=='Paper'){
         isPlayerWinner = false;
     }else if(computerSelection==playerSelection){
-        return 'draw';
+        return 'Draw';
     }
     return isPlayerWinner;
 }
 
 function getResultMessage(result,computerSelection,playerSelection){
-    if(result&&result!='draw'){
-        return `You Win! ${playerSelection.toLowerCase()} beats ${computerSelection.toLowerCase()}!` 
-    }else if(!result&&result!='draw'){
-        return `You Lose! ${computerSelection.toLowerCase()} beats ${playerSelection.toLowerCase()}!` 
+    if(result&&result!='Draw'){
+        return `You Win! ${playerSelection} beats ${computerSelection}!` 
+    }else if(!result&&result!='Draw'){
+        return `You Lose! ${computerSelection} beats ${playerSelection}!` 
     }else{
         return 'It\'s a draw!'
     }
 }
 
 function play(event){
-    let computerSelection = getComputerChoice().toLowerCase();
+
+    let computerSelection = getComputerChoice();
     let playerSelection = event.target.dataset.value;
 
     let result = gameLogic(computerSelection,playerSelection);
-    console.log(getResultMessage(result,computerSelection,playerSelection));
+    // console.log(getResultMessage(result,computerSelection,playerSelection));
     messageDiv.innerText = getResultMessage(result,computerSelection,playerSelection);
     // return result;
-    game(result);
+    updateGame(result);
 }
 
-function game(result){
+function updateScoreDiv(cpuScore, playerScore){
+    scoreDiv.innerText = `Games Played: ${gamesPlayed}/5 | CPU: ${cpuScore} | Player: ${playerScore}`;
+}
 
+function updateMessageDiv(){
+    if(playerScore>cpuScore){
+        messageDiv.innerText = 'Congratulations! You Won!';
+    }else if(playerScore<cpuScore){
+        messageDiv.innerText = 'Better luck next time!';
+    }else{
+        messageDiv.innerText = 'Match Draw!';
+    }
+}
 
-    // for(let i = 0; i < 5; i++){
-        // let result = play();
+function updateGame(result){
+    if(gamesPlayed == 5){
+        updateMessageDiv();
+    }else{
         if(result==true){
             playerScore++;
             gamesPlayed++;
@@ -67,14 +82,6 @@ function game(result){
             cpuScore++;
             gamesPlayed++;
         }
-    // }
-    if(gamesPlayed == 5){
-        if(playerScore>cpuScore){
-            alert(`CPU:${cpuScore} | Player: ${playerScore} \n Congratulations! You Won!`)
-        }else if(playerScore<cpuScore){
-            alert(`CPU:${cpuScore} | Player: ${playerScore} \n Better luck next time!`)
-        }else{
-            alert(`CPU:${cpuScore} | Player: ${playerScore} \n It's a draw!`)
-        }
     }
+    updateScoreDiv(cpuScore, playerScore);
 }
